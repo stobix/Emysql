@@ -25,6 +25,8 @@
 %% FROM,  OUT OF OR IN CONNECTION WITH THE SOFTWARE  OR THE USE OR
 %% OTHER DEALINGS IN THE SOFTWARE.
 
+-ifndef('EMYSQL_SUCKS_BIG_TIME_AND_DOESN_T_CHECK_FORMULTIPLE_IMPORT').
+-define(EMYSQL_SUCKS_BIG_TIME_AND_DOESN_T_CHECK_FORMULTIPLE_IMPORT,but_now_it_does).
 
 -record(pool, {pool_id, size, user, password, host, port, database, encoding, available=queue:new(), locked=gb_trees:empty(), waiting=queue:new(), start_cmds=[], conn_test_period=0}).
 -record(emysql_connection, {id, pool_id, encoding, socket, version, thread_id, caps, language, prepared=gb_trees:empty(), locked_at, alive=true, test_period=0, last_test_time=0, monitor_ref}).
@@ -143,3 +145,6 @@
 %% AUTH PLUGIN
 -define(MYSQL_NATIVE_PASSWORD, "mysql_native_password").
 -define(MYSQL_OLD_PASSWORD, "mysql_old_password").
+
+-else.
+-endif.
